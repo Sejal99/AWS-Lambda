@@ -29,7 +29,7 @@ async function putObjectURL(key,contentType){  //key and content type user will 
 }
 
 async function init(){
-    console.log('url',await getObjectURL("filter.png"));
+    // console.log('url',await getObjectURL("filter.png"));
     console.log('uploaded file',await putObjectURL(`image-${Date.now()}.jpeg`,"image/jpeg"));
 }
 init();
