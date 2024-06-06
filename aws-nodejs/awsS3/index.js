@@ -1,4 +1,4 @@
-const {S3Client, GetObjectCommand} = require ("@aws-sdk/client-s3")
+const {S3Client, GetObjectCommand,PutObjectCommand} = require ("@aws-sdk/client-s3")
 const { getSignedUrl } = require ("@aws-sdk/s3-request-presigner");
 
 const s3Client=new S3Client({
@@ -18,7 +18,18 @@ async function getObjectURL(key){
     return url;
 }
 
+async function putObjectURL(key,contentType){  //key and content type user will give
+    const command=new PutObjectCommand({
+        Bucket:"sejal-private-yt",
+        Key:`/uploads/user`,
+        ContentType:contentType,
+    })
+    const url=await getSignedUrl(s3Client,command);
+    return url;
+}
+
 async function init(){
     console.log('url',await getObjectURL("filter.png"));
+    console.log('uploaded file',await putObjectURL(`image-${Date.now()}.jpeg`,"image/jpeg"));
 }
 init();
